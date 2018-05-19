@@ -17,9 +17,8 @@ services:
     image: wordpress:4.9.5-php7.0-apache
     restart: always
     environment:
-      WORDPRESS_DB_HOST: mysql1
       WORDPRESS_DB_PASSWORD: example
-      # WORDPRESS_TABLE_PREFIX: site1_
+      WORDPRESS_TABLE_PREFIX: site1_
     networks:
         - front
         - back
@@ -30,16 +29,15 @@ services:
     image: wordpress:4.9.5-php7.0-apache
     restart: always
     environment:
-      WORDPRESS_DB_HOST: mysql2
       WORDPRESS_DB_PASSWORD: example
-      # WORDPRESS_TABLE_PREFIX: site2_
+      WORDPRESS_TABLE_PREFIX: site2_
     networks:
         - front
         - back
     volumes:
         - site2_content:/var/www/html/wp-content
 
-  mysql1:
+  mysql:
     image: mysql:5.7
     restart: always
     environment:
@@ -47,17 +45,7 @@ services:
     networks:
         - back
     volumes:
-        - db_data1:/var/lib/mysql
-
-  mysql2:
-    image: mysql:5.7
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: example
-    networks:
-        - back
-    volumes:
-        - db_data2:/var/lib/mysql
+        - db_data:/var/lib/mysql
 
 
 networks:
@@ -67,5 +55,4 @@ networks:
 volumes:
     site1_content:
     site2_content:
-    db_data1:
-    db_data2:
+    db_data:
